@@ -11,24 +11,35 @@ const speciesList = ["Adelie", "Gentoo", "Chinstrap"];
 
         <nav class="species-nav" aria-label="Navigation par espèce">
             <ul>
-                {speciesList.map((species) => (
-                    <li>
-                        <a href={`#${species.toLowerCase()}`}>{species}</a>
-                    </li>
-                ))}
+                {
+                    speciesList.map((species) => (
+                        <li>
+                            <a
+                                class="menu-item inline-block px-4 py-2 border border-gray-300 rounded font-bold text-gray-800 hover:bg-gray-100 transition-colors [.active]:bg-red-200"
+                                href={`#${species.toLowerCase()}`}
+                            >
+                                {species}
+                            </a>
+                        </li>
+                    ))
+                }
             </ul>
         </nav>
 
         <div class="slider">
-            {speciesList.map((species) => (
-                <section class="slide" id={species.toLowerCase()}>
-                    <GraphicSpecies species={species} />
-                </section>
-            ))}
+            {
+                speciesList.map((species) => (
+                    <section class="slide item" id={species.toLowerCase()}>
+                        <GraphicSpecies species={species} />
+                    </section>
+                ))
+            }
         </div>
 
-        <p>
-            <a href="/">Retour à l'accueil</a>
+        <p class="mt-8">
+            <a href="/" class="text-blue-600 hover:underline"
+                >← Retour à l'accueil</a
+            >
         </p>
     </main>
 </Layout>
@@ -40,20 +51,6 @@ const speciesList = ["Adelie", "Gentoo", "Chinstrap"];
         gap: 1rem;
         padding: 0;
         margin: 0 0 1rem;
-    }
-
-    .species-nav a {
-        display: inline-block;
-        padding: 0.5rem 1rem;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        text-decoration: none;
-        font-weight: bold;
-        color: #333;
-    }
-
-    .species-nav a:hover {
-        background-color: #eee;
     }
 
     .slider {
@@ -70,3 +67,31 @@ const speciesList = ["Adelie", "Gentoo", "Chinstrap"];
     }
 </style>
 
+<script>
+    const menuItems = document.querySelectorAll(".menu-item");
+    const items = document.querySelectorAll(".item");
+
+    console.log("menuItems", menuItems);
+    console.log("items", items);
+
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                const id = entry.target.getAttribute("id");
+                const menuItem = document.querySelector(
+                    `.menu-item[href="#${id}"]`,
+                );
+                if (entry.isIntersecting) {
+                    menuItem?.classList.add("active");
+                } else {
+                    menuItem?.classList.remove("active");
+                }
+            });
+        },
+        { threshold: 0.5 },
+    );
+
+    items.forEach((item) => {
+        observer.observe(item);
+    });
+</script>
