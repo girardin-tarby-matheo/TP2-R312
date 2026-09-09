@@ -1,0 +1,45 @@
+---
+const { active } = Astro.props;
+const currentPath = Astro.url.pathname;
+
+const tabs = [
+    { id: "home", label: "Accueil", href: "/" },
+    { id: "graphique1", label: "Graphique 1", href: "/graphique1" },
+    { id: "graphique2", label: "Graphique 2", href: "/graphique2" },
+    { id: "graphique3", label: "Graphique 3", href: "/graphique3" },
+    { id: "graphique4", label: "Graphique 4", href: "/graphique4" },
+];
+---
+
+<nav class="menu" aria-label="Navigation principale">
+    <ul>
+        {
+            tabs.map((tab) => (
+                <li class={tab.id === active || (!active && tab.href === currentPath) ? "active" : ""}>
+                    <a href={tab.href}>{tab.label}</a>
+                </li>
+            ))
+        }
+    </ul>
+</nav>
+
+<style>
+    .menu { display: flex; gap: 1rem; padding: 1rem; border-bottom: 1px solid #ccc; }
+    .menu > a { font-weight: bold; }
+
+    .menu ul {
+        list-style: none;
+        display: flex;
+        gap: 1rem;
+        padding: 0;
+        margin: 0;
+    }
+
+    .menu li a {
+        text-decoration: none;
+        padding: .25rem;
+    }
+    .menu li.active a {
+        font-weight: bold;
+    }
+</style>

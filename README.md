@@ -1,7 +1,7 @@
-- URL site WEB :
+- URL site WEB : 
 - URL Notebook Observable :
-- Nom :
-- Prénom :
+- Nom : Girardin Tarby
+- Prénom : Mathéo
 - Nom binome :
 - Prénom binome :
 
